@@ -27,7 +27,7 @@ test_data['DATE ADDED'] = label_encoder_date_added.transform(test_data['DATE ADD
 test_data['REGION_x'] = label_encoder_region.transform(test_data['REGION_x'])
 
 # Create a list of models to fit
-models = [LogisticRegression(), SVC(), GaussianNB(), KNeighborsClassifier(), DecisionTreeClassifier(),
+models = [LogisticRegression(), GaussianNB(), KNeighborsClassifier(), DecisionTreeClassifier(),
           BaggingClassifier(), AdaBoostClassifier(), GradientBoostingClassifier(), RandomForestClassifier()]
 
 # Fit each model to the transformed dataset
