@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
@@ -15,22 +14,14 @@ from sklearn.metrics import accuracy_score
 
 # Assuming you have the balanced_train and test_data available
 # If not, make sure to load your datasets appropriately
-balanced_train=pd.read_csv('balance_train.csv')
-test_data=pd.read_csv('testi.csv')
 
-# Label encode categorical columns
-label_encoder_date_added = LabelEncoder()
-label_encoder_region = LabelEncoder()
+#loading the datasets
+balanced_train = pd.read_csv('balanced_train.csv')
+test_data = pd.read_csv('test_data.csv')
 
-balanced_train['DATE ADDED'] = label_encoder_date_added.fit_transform(balanced_train['DATE ADDED'])
-balanced_train['REGION_x'] = label_encoder_region.fit_transform(balanced_train['REGION_x'])
-
-test_data['DATE ADDED'] = label_encoder_date_added.transform(test_data['DATE ADDED'])
-test_data['REGION_x'] = label_encoder_region.transform(test_data['REGION_x'])
 
 # Create a list of models to fit
-models = [LogisticRegression(), GaussianNB(), KNeighborsClassifier(), DecisionTreeClassifier(),
-          BaggingClassifier(), AdaBoostClassifier(), GradientBoostingClassifier(), RandomForestClassifier()]
+models = [LogisticRegression(), GaussianNB(), KNeighborsClassifier(), DecisionTreeClassifier(), BaggingClassifier(), AdaBoostClassifier(), GradientBoostingClassifier(), RandomForestClassifier()]
 
 # Fit each model to the transformed dataset
 for model in models:
@@ -43,14 +34,7 @@ st.title("Model Deployment with Streamlit")
 st.sidebar.header('Input Features')
 user_input = {}
 for feature in balanced_train.drop(['CATEGORY'], axis=1).columns:
-    if feature == 'DATE ADDED' or feature == 'REGION_x':
-        # Decode categorical values for dropdowns
-        user_input[feature] = label_encoder_date_added.inverse_transform(st.sidebar.slider(f'Select {feature}',
-                                                                                            float(balanced_train[feature].min()),
-                                                                                            float(balanced_train[feature].max())))
-    else:
-        user_input[feature] = st.sidebar.slider(f'Select {feature}', float(balanced_train[feature].min()),
-                                                float(balanced_train[feature].max()))
+    user_input[feature] = st.sidebar.slider(f'Select {feature}', float(balanced_train[feature].min()), float(balanced_train[feature].max()))
 
 # Create a dataframe with user input
 user_input_df = pd.DataFrame([user_input])
