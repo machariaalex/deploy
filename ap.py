@@ -39,7 +39,6 @@ def get_user_input(features):
             float(balanced_train[feature].min()),
             float(balanced_train[feature].max())
         )
-    user_input['SN'] = st.sidebar.selectbox('Select SN', balanced_train['SN'].unique())
     return pd.DataFrame([user_input])
 
 # Function to scale data using MinMaxScaler
