@@ -15,6 +15,8 @@ from sklearn.metrics import accuracy_score
 
 # Assuming you have the balanced_train and test_data available
 # If not, make sure to load your datasets appropriately
+balanced_train=pd.read_csv('balance_train.csv')
+test_data=pd.read_csv('testi.csv')
 
 # Label encode categorical columns
 label_encoder_date_added = LabelEncoder()
