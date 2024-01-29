@@ -10,8 +10,8 @@ from sklearn.preprocessing import MinMaxScaler
 
 # Function to load datasets
 def load_datasets():
-    balanced_train = pd.read_csv('balance_train.csv')
-    test_data = pd.read_csv('testi.csv')
+    balanced_train = pd.read_csv('balanced_train.csv')
+    test_data = pd.read_csv('test_data.csv')
     return balanced_train, test_data
 
 # Function to train models
